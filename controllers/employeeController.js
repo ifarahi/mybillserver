@@ -65,4 +65,38 @@ module.exports = {
             });
         }
     },
+    update: async (req, res) => {
+        const { _id, data } = req.body;
+        try {
+            await employeeModel.update(_id, data);
+            return res.json({
+                status: 200,
+                msg: 'Success',
+                data: {}
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                msg: UNKNOWN_ERROR,
+                data: error,
+            });
+        }
+    },
+    delete: async (req, res) => {
+        const { _id } = req.body;
+        try {
+            await employeeModel.delete(_id);
+            return res.json({
+                status: 200,
+                msg: 'Success',
+                data: {}
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                msg: UNKNOWN_ERROR,
+                data: error,
+            });
+        }
+    }
 }

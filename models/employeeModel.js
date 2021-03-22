@@ -22,5 +22,13 @@ module.exports = {
     get: (finder = {}) => {
         return Employee.find(finder);
     },
+    update: async (id, newData) => {
+        return await Employee.findByIdAndUpdate(id, newData, {
+            useFindAndModify: false
+        });
+    },
+    delete: async id => {
+        return await Employee.findByIdAndRemove(id, { useFindAndModify: false });
+    }
 };
 

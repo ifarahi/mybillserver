@@ -14,4 +14,12 @@ employeeRouter.route("/get").get(
     employeeController.get,
 );
 
+employeeRouter.route("/update").post(
+    employeeController.update,
+);
+
+employeeRouter.route("/delete").post(
+    employeeController.delete,
+);
+
 module.exports = employeeRouter;
