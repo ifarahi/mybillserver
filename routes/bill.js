@@ -18,4 +18,8 @@ billRouter.route("/get/Ids").get(
     billController.getAllIds,
 );
 
+billRouter.route("/get").get(
+    billController.getAll,
+);
+
 module.exports = billRouter;

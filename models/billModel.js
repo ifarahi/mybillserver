@@ -9,7 +9,10 @@ const billContentSchema = new mongoose.Schema({
 });
 
 const billSchema = new mongoose.Schema({
-    billContent: [billContentSchema]
+    billContent: [billContentSchema],
+    totalPrice: String,
+    clientName: String,
+    date: Date,
 });
 
 const Bill = mongoose.model("bill", billSchema);
@@ -17,7 +20,7 @@ const Bill = mongoose.model("bill", billSchema);
 
 module.exports = {
     add: async (data, callback) => {
-        const newBill = new Bill({ billContent: data });
+        const newBill = new Bill(data);
         await newBill.save(callback);
     },
     getBill: finder => {
@@ -25,5 +28,8 @@ module.exports = {
     },
     getIds: () => {
         return Bill.find({}, '_id');
+    },
+    get: () => {
+        return Bill.find({});
     }
 }
