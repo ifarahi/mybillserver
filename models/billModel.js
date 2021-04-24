@@ -1,17 +1,18 @@
 const mongoose = require('../db/db');
 
-const billContentSchema = new mongoose.Schema({
+/*const billContentSchema = new mongoose.Schema({
     ID: String,
     productName: String,
     qte: String,
     price: String,
     totalPrice: String,
-});
+});*/
 
 const billSchema = new mongoose.Schema({
-    billContent: [billContentSchema],
+    billContent: [Object],
     totalPrice: String,
     clientName: String,
+    billType: String,
     date: Date,
 });
 

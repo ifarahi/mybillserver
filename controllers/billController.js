@@ -4,7 +4,7 @@ const billModel = require('../models/billModel');
 
 module.exports = {
     add: async (req, res) => {
-        const { bill, clientName } = req.body;
+        const { bill, clientName, billType } = req.body;
         let totalPrice = 0;
         try {
             bill?.forEach(item => {
@@ -16,6 +16,7 @@ module.exports = {
                 billContent: bill,
                 date: new Date(),
                 totalPrice: String(totalPrice),
+                billType,
                 clientName,
             }
             billModel.add(globalBill, (err, theBill) => {
