@@ -9,6 +9,7 @@ const employeeSchema = new mongoose.Schema({
     role: String,
     salaire: String,
     holydays: Number,
+    companyId: String
 });
 
 const Employee = mongoose.model("employee", employeeSchema);

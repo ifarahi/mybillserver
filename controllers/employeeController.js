@@ -4,6 +4,7 @@ const employeeModel = require('../models/employeeModel');
 
 module.exports = {
     add: async (req, res) => {
+        const { _id: companyId } = req.decoded;
         const {
             reference,
             firstName,
@@ -23,6 +24,7 @@ module.exports = {
             role,
             salaire,
             holydays: Number(holydays) || 18,
+            companyId,
         };
 
         try {
@@ -51,7 +53,8 @@ module.exports = {
     },
     get: async (req, res) => {
         try {
-            const employee = await employeeModel.get({});
+            const { _id } = req.decoded; 
+            const employee = await employeeModel.get({ companyId: _id });
             return res.json({
                 status: 200,
                 msg: 'Success',

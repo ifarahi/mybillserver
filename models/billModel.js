@@ -14,6 +14,7 @@ const billSchema = new mongoose.Schema({
     clientName: String,
     billType: String,
     date: Date,
+    companyId: String,
 });
 
 const Bill = mongoose.model("bill", billSchema);
@@ -30,7 +31,7 @@ module.exports = {
     getIds: () => {
         return Bill.find({}, '_id');
     },
-    get: () => {
-        return Bill.find({});
+    get: (companyId) => {
+        return Bill.find({ companyId });
     }
 }

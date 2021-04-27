@@ -5,6 +5,7 @@ const billModel = require('../models/billModel');
 module.exports = {
     add: async (req, res) => {
         const { bill, clientName, billType } = req.body;
+        const { _id } = req.decoded;
         let totalPrice = 0;
         try {
             bill?.forEach(item => {
@@ -18,6 +19,7 @@ module.exports = {
                 totalPrice: String(totalPrice),
                 billType,
                 clientName,
+                companyId: _id,
             }
             billModel.add(globalBill, (err, theBill) => {
                 if (err) {
@@ -77,7 +79,8 @@ module.exports = {
     },
     getAll: async (req, res) => {
         try {
-            const bill = await billModel.get();
+            const { _id } = req.decoded;
+            const bill = await billModel.get(_id);
             return res.json({
                 status: 200,
                 msg: 'Success',

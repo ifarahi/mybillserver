@@ -1,19 +1,16 @@
 const jwtOperations = require("../helpers/checkToken");
 
 module.exports = function auth(req, res, next) {
-    const authorization = req.header("Authorization");
-    if (authorization) {
-        var token = authorization.split(" ")[1];
-    }
-    else
+    const authorization = req.headers.authorization;
+    if (!authorization) {
         return res
             .status(401)
-            .json(messageError("Authorization token is required"));
-
+            .json({ message: "Authorization token is required" });
+    }
     try {
-        var decoded = jwtOperations.checkToken(token)
+        var decoded = jwtOperations.checkToken(authorization)
     } catch (error) {
-        return res.status(401).json(messageError("Invalid token"));
+        return res.status(401).json({ error: error,  message: "Invalid token" });
     }
 
     req.decoded = decoded;
