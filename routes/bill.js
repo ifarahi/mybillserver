@@ -12,7 +12,6 @@ billRouter.route("/add").post(
 );
 
 billRouter.route("/getById/:_id").get(
-    auth,
     billController.getOneBill,
 );
 
