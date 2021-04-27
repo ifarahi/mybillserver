@@ -17,7 +17,6 @@ billRouter.route("/getById/:_id").get(
 );
 
 billRouter.route("/get/Ids").get(
-    auth,
     billController.getAllIds,
 );
 
