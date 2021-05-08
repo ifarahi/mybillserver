@@ -16,4 +16,8 @@ companyRouter.route("/login").post(
     companyController.login
 );
 
+companyRouter.route("/confirm").post(
+    companyController.confirm
+);
+
 module.exports = companyRouter;
