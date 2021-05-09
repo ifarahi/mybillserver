@@ -24,4 +24,9 @@ billRouter.route("/get").get(
     billController.getAll,
 );
 
+billRouter.route("/sendBill").post(
+    auth,
+    billController.sendBill,
+);
+
 module.exports = billRouter;

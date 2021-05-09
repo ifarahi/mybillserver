@@ -1,5 +1,6 @@
-const { INVALID_DATA, UNKNOWN_ERROR } = require('../helpers/constants');
+const { UNKNOWN_ERROR } = require('../helpers/constants');
 const billModel = require('../models/billModel');
+const { send } = require('../helpers/sendMail');
 
 
 module.exports = {
@@ -86,6 +87,30 @@ module.exports = {
                 msg: 'Success',
                 data: bill,
             });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                msg: UNKNOWN_ERROR,
+                data: error,
+            });
+        }
+    },
+    sendBill: async (req, res) => {
+        try {
+            const { currentURL } = req.body;
+            const { companyEmail } = req.decoded;
+
+            const emailDetails = {
+                receiver: companyEmail,
+                subject: "Your bill",
+                html: `<h1>click here see you bill <a href="${req.headers.origin}${currentURL}">Here !!</a></h1>`
+            }
+            res.json({
+                status: 200,
+                msg: 'Success',
+                data: {},
+            });
+            send(emailDetails).catch(err => console.log(err));
         } catch (error) {
             res.status(500).json({
                 status: 500,

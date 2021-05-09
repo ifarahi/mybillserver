@@ -27,6 +27,6 @@ module.exports.send = async mailInfos => {
     text: mailInfos.body,
     html: mailInfos.html
   });
-
+  console.log(info);
   return true;
 };
