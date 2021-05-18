@@ -18,6 +18,7 @@ module.exports = {
                 billContent: bill,
                 date: new Date(),
                 totalPrice: String(totalPrice),
+                status: 'Pending',
                 billType,
                 clientName,
                 companyId: _id,

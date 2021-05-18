@@ -15,6 +15,7 @@ const billSchema = new mongoose.Schema({
     billType: String,
     date: Date,
     companyId: String,
+    status: String,
 });
 
 const Bill = mongoose.model("bill", billSchema);
@@ -33,5 +34,23 @@ module.exports = {
     },
     get: (companyId) => {
         return Bill.find({ companyId });
+    },
+    getAll: () => {
+        return Bill.find();
+    },
+    setExpired: async (id) => {
+        return await Bill.findByIdAndUpdate(id, { status: 'Expired' }, {
+            useFindAndModify: false
+        });
+    },
+    setApproved: async (id) => {
+        return await Bill.findByIdAndUpdate(id, { status: 'Approved' }, {
+            useFindAndModify: false
+        });
+    },
+    setRejected: async (id) => {
+        return await Bill.findByIdAndUpdate(id, { status: 'Rejected' }, {
+            useFindAndModify: false
+        });
     }
 }
