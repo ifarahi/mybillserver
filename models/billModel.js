@@ -9,12 +9,11 @@ const mongoose = require('../db/db');
 });*/
 
 const billSchema = new mongoose.Schema({
-    billContent: [Object],
+    billContent: Object,
     totalPrice: String,
     clientName: String,
     billType: String,
-    date: Date,
-    companyId: String,
+    idR: String,
     status: String,
 });
 
