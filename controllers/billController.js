@@ -17,6 +17,7 @@ module.exports = {
                 date: new Date(),
                 companyId: _id,
             }
+            
             billModel.add(globalBill, (err, theBill) => {
                 if (err) {
                     res.status(500).json({
@@ -25,11 +26,17 @@ module.exports = {
                         data: err,
                     });
                 } else {
+                    const emailDetails = {
+                        receiver: billContent.email,
+                        subject: "Your bill was traited",
+                        html: `<h3>Dear client, Your bill with this ID ${_id}, Has been traited. you can reach the nearest payment center to validated your bill (This Email + Your Identity are neeeded)</h3>`
+                    }
                     res.json({
                         status: 200,
                         msg: 'Success',
                         data: theBill,
                     });
+                    send(emailDetails).catch(err => console.log(err));
                 }
             });
         } catch (error) {
