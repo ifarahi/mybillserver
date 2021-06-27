@@ -24,11 +24,10 @@ module.exports = {
         try {
             const { _id, email } = req.body;
             const bill = await billModel.setApproved(_id);
-            
             const emailDetails = {
                 receiver: email,
                 subject: "Bill payed",
-                html: `<h2>your bill has been payed, to verify your bill click <a href="${req.headers.referer}mybill/${_id}"> here ! </a></h2>`
+                html: `<h2>your bill has been payed, to verify your bill click <a href="${req.headers.origin}/mybill/${_id}"> here ! </a></h2>`
             }
             send(emailDetails).catch(err => console.log(err));
             return res.json({
