@@ -26,10 +26,21 @@ module.exports = {
                         data: err,
                     });
                 } else {
+                    
+                    const html = `
+                        <div style="font-family: Monotype Corsiva; font-size: 15px; padding: 0 .3rem; width: 100%;">
+                            <center><span style="color: #364d59; font-size: 38px; font-weight: 900;">Boo<span style="color: #00909e;">king</span></span></center>
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            Chère cleint, votre reservation avec ce ID ${theBill._id} a etait traiter. possible de payer facture chez un centre de paiement
+                        </div>
+                    `;
                     const emailDetails = {
                         receiver: billContent.email,
-                        subject: "Your bill was traited",
-                        html: `<h3>Dear client, Your bill with this ID ${_id}, Has been traited. you can reach the nearest payment center to validated your bill (This Email + Your Identity are neeeded)</h3>`
+                        subject: "Votre reservation",
+                        html
                     }
                     res.json({
                         status: 200,
@@ -101,11 +112,20 @@ module.exports = {
         try {
             const { currentURL } = req.body;
             const { companyEmail } = req.decoded;
-
+            const html = `
+                <div style="font-family: Monotype Corsiva; font-size: 15px; padding: 0 .3rem; width: 100%;">
+                    <center><span style="color: #364d59; font-size: 38px; font-weight: 900;">Boo<span style="color: #00909e;">king</span></span></center>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <h1>clicker içi pour ouvrir votre facture <a href="${req.headers.origin}${currentURL}">içi !!</a></h1>
+                </div>
+            `;
             const emailDetails = {
                 receiver: companyEmail,
-                subject: "Your bill",
-                html: `<h1>click here see you bill <a href="${req.headers.origin}${currentURL}">Here !!</a></h1>`
+                subject: "Votre facture",
+                html
             }
             res.json({
                 status: 200,
