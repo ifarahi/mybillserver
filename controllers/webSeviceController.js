@@ -24,10 +24,20 @@ module.exports = {
         try {
             const { _id, email } = req.body;
             const bill = await billModel.setApproved(_id);
+            const html = `
+                <div style="font-family: Monotype Corsiva; font-size: 15px; padding: 0 .3rem; width: 100%;">
+                    <center><span style="color: #364d59; font-size: 38px; font-weight: 900;">Boo<span style="color: #00909e;">king</span></span></center>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <h1>clicker içi pour ouvrir votre facture <a href="${req.headers.origin}/mybill/${_id}">içi !!</a></h1>
+                </div>
+            `;
             const emailDetails = {
                 receiver: email,
                 subject: "Bill payed",
-                html: `<h2>your bill has been payed, to verify your bill click <a href="${req.headers.origin}/mybill/${_id}"> here ! </a></h2>`
+                html
             }
             send(emailDetails).catch(err => console.log(err));
             return res.json({
