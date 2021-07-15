@@ -1,5 +1,6 @@
 const { INVALID_DATA, UNKNOWN_ERROR } = require('../helpers/constants');
 const companyModel = require('../models/companyModel');
+const employeeModel = require('../models/employeeModel');
 const Generator = require('uuid-token-generator');
 const jwtOperations = require('../helpers/checkToken');
 const { send } = require('../helpers/sendMail');
@@ -79,11 +80,12 @@ module.exports = {
         };
         try {
             const result = await companyModel.searchToLogin(params);
+            const result2 = await employeeModel.searchToLogin(params);
             const jwtToken = jwtOperations.generateToken({
                 companyEmail: params.companyEmail,
                 _id: result?._id
             })
-            result ? res.status(200).json({
+            result || result2 ? res.status(200).json({
                 status: 200,
                 msg: 'Success',
                 data: {

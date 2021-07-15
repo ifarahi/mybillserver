@@ -9,7 +9,9 @@ const employeeSchema = new mongoose.Schema({
     role: String,
     salaire: String,
     holydays: Number,
-    companyId: String
+    companyId: String,
+    email: String,
+    password: String,
 });
 
 const Employee = mongoose.model("employee", employeeSchema);
@@ -30,6 +32,9 @@ module.exports = {
     },
     delete: async id => {
         return await Employee.findByIdAndRemove(id, { useFindAndModify: false });
-    }
+    },
+    searchToLogin: params => {
+        return Employee.findOne({ email: params.companyEmail, password: params.pass })
+    },
 };
 
