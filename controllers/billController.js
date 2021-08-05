@@ -42,12 +42,23 @@ module.exports = {
                         subject: "Votre reservation",
                         html
                     }
-                    res.json({
-                        status: 200,
-                        msg: 'Success',
-                        data: theBill,
+
+                    send(emailDetails)
+                    .then(() => {
+                        res.json({
+                            status: 200,
+                            msg: 'Success',
+                            data: theBill,
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                            status: 500,
+                            msg: UNKNOWN_ERROR,
+                            data: error,
+                        });
                     });
-                    send(emailDetails).catch(err => console.log(err));
                 }
             });
         } catch (error) {
